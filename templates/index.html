@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Alfesani Solutions Ltd.</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
+      crossorigin="anonymous"
+    />
+    <style>
+      body {
+        background-color: aquamarine;
+      }
+    </style>
+  </head>
+  <body>
+    
+<nav class="navbar navbar-expand-lg text-bg-info">
+  <div class="container-fluid">
+    <a class="navbar-brand" style="color: brown;" href="/">ASM</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/">Home</a>
+        </li>
+	<li class="nav-item">
+        <a class="nav-link active" aria-current="page" href="#about">About Organization </a>
+	</li>
+     </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="headings mt-5">
+      <h1 style="text-align: center">Alfesani Solutions Limited</h1>
+      <h2 style="text-align: center">
+        Powered by: <span style="color: brown">ASM Group</span>
+      </h2>
+    </div>
+    <div class="container mt-5 p-4" style="border: solid 3px black">
+      <div class="getInfo">
+        <form action="/insertEmp" method="post" class="row g-3">
+          <div class="col-md-3">
+            <label for="empName" class="form-label">Employee Name</label>
+            <input
+              type="text"
+              class="form-control"
+              id="empName"
+              name="empName"
+              placeholder="Enter Your Name"
+              required
+            />
+          </div>
+
+          <div class="col-md-3">
+            <label for="empDept" class="form-label">Department</label>
+            <select id="empDept" name="empDept" class="form-select" required>
+              <option selected>Choose...</option>
+              <option>Accounting & Finance</option>
+              <option>Development</option>
+              <option>Testing</option>
+              <option>Executive</option>
+            </select>
+          </div>
+
+          <div class="form-check form-check-inline">
+            <input
+              class="form-check-input"
+              type="radio"
+              name="empGender"
+              id="inlineRadio1"
+              value="Male"
+            />
+            <label class="form-check-label" for="inlineRadio1">Male</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input
+              class="form-check-input"
+              type="radio"
+              name="empGender"
+              id="inlineRadio2"
+              value="Female"
+            />
+            <label class="form-check-label" for="inlineRadio2">Female</label>
+          </div>
+          <div class="introArea">
+            <label for="empDept" class="form-label">Short Introduction:-</label>
+            <textarea
+              name="empIntro"
+              class="form-control"
+              id="empIntro"
+              rows="2"
+              required
+            ></textarea>
+          </div>
+
+          <div class="col-12">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="gridCheck" />
+              <label
+                class="form-check-label"
+                style="color: blue"
+                for="gridCheck"
+              >
+                <u>I have entered the above, information is correct. </u>
+              </label>
+            </div>
+          </div>
+
+          <div class="col-12">
+            <button type="submit" class="btn btn-secondary">Submit</button>
+          </div>
+        </form>
+      </div>
+      <hr />
+      {% if message %}
+      <div class="alert alert-success d-flex align-items-center" role="alert">
+        <svg class="bi flex-shrink-0 me-2" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
+        <div>
+          {{ message }}
+        </div>
+      </div>
+      
+      {% endif %}
+      <div class="d-flex justify-content-evenly g-4">
+        <div class="card-group">
+          {% for emp in empRecords %}
+          <div class="col">
+          <div class="card shadow-lg"   style="width: 18rem; background-color: rgb(119, 232, 220); margin: 15px;">
+            <div class="card-body">
+              <h5 class="card-title">{{emp["Name"]}}</h5>
+              <h6 class="card-subtitle mb-2 text-muted">
+                {{emp["Department"]}}
+              </h6>
+              <p class="card-text">{{emp["Introduction"]}}.</p>
+
+              <a href="./update/{{emp['_id']}}" class="btn btn-dark">Update</a>                          
+              <a href="/deleteEmp/{{emp['_id']}}" class="btn btn-danger">Delete</a>
+
+            </div>
+          </div>
+        </div>
+       
+          {% endfor %}
+        </div>
+      </div>
+      <br><br><hr>
+      
+      <!---------------------- ABOUT Section  ------------------------>
+      <h3 style="text-align: center; margin-bottom: 20px;"><u> About Organization</u></h3>
+      <div id="about" style=" width: 1255px; height: 300px; border: 3px dotted blueviolet;">
+      </div>
+      <a href="https://towardsdatascience.com/deploying-a-flask-app-on-heroku-and-connecting-it-to-mongodbs-mlab-e0022c4e6d1e">Link for deployment</a>
+
+    </div>
+    <br><br>
+    <script src="/static/app.js"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+      crossorigin="anonymous"
+    ></script>
+
+  </body>
+</html>
